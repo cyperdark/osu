@@ -130,6 +130,16 @@ namespace osu.Game.Localisation
         public static LocalisableString MarkAsPlayed => new TranslatableString(getKey(@"mark_as_played"), @"Mark as played");
 
         /// <summary>
+        /// "Hide background"
+        /// </summary>
+        public static LocalisableString HideBackground => new TranslatableString(getKey(@"hide_background"), @"Hide background");
+
+        /// <summary>
+        /// "Show background"
+        /// </summary>
+        public static LocalisableString ShowBackground => new TranslatableString(getKey(@"show_background"), @"Show background");
+
+        /// <summary>
         /// "Clear all local scores"
         /// </summary>
         public static LocalisableString ClearAllLocalScores => new TranslatableString(getKey(@"clear_all_local_scores"), @"Clear all local scores");

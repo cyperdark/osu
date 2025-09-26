@@ -12,6 +12,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Primitives;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Game.Beatmaps;
 using osu.Game.Overlays;
 using osuTK;
@@ -178,17 +179,23 @@ namespace osu.Game.Screens.SelectV2
         {
             private readonly IWorkingBeatmap working;
 
-            public PanelBeatmapBackground(IWorkingBeatmap working)
+            private readonly string fallbackTextureName;
+
+            public PanelBeatmapBackground(IWorkingBeatmap working, string fallbackTextureName = @"Backgrounds/bg1")
             {
                 ArgumentNullException.ThrowIfNull(working);
 
                 this.working = working;
+                this.fallbackTextureName = fallbackTextureName;
             }
 
             [BackgroundDependencyLoader]
-            private void load()
+            private void load(LargeTextureStore textures)
             {
-                Texture = working.GetPanelBackground();
+                if (working.Beatmap.BeatmapInfo.BackgroundHidden)
+                    Texture = textures.Get(fallbackTextureName);
+                else
+                    Texture = working.GetPanelBackground() ?? textures.Get(fallbackTextureName);
             }
         }
     }

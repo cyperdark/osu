@@ -4,6 +4,7 @@
 using System;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 
 namespace osu.Game.Beatmaps.Drawables
 {
@@ -11,19 +12,23 @@ namespace osu.Game.Beatmaps.Drawables
     {
         private readonly IWorkingBeatmap working;
 
-        public BeatmapBackgroundSprite(IWorkingBeatmap working)
+        private readonly string fallbackTextureName;
+
+        public BeatmapBackgroundSprite(IWorkingBeatmap working, string fallbackTextureName = @"Backgrounds/bg1")
         {
             ArgumentNullException.ThrowIfNull(working);
 
             this.working = working;
+            this.fallbackTextureName = fallbackTextureName;
         }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(LargeTextureStore textures)
         {
-            var background = working.GetBackground();
-            if (background != null)
-                Texture = background;
+            if (working.Beatmap.BeatmapInfo.BackgroundHidden)
+                Texture = textures.Get(fallbackTextureName);
+            else
+                Texture = working.GetBackground() ?? textures.Get(fallbackTextureName);
         }
     }
 }

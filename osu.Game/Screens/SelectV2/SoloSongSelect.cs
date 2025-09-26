@@ -88,6 +88,17 @@ namespace osu.Game.Screens.SelectV2
                 Icon = FontAwesome.Solid.Eraser
             };
 
+            yield return new OsuMenuItemSpacer();
+
+            if (beatmap.BackgroundHidden)
+            {
+                yield return new OsuMenuItem(SongSelectStrings.ShowBackground, MenuItemType.Standard, () => beatmaps.SetBackgroundVisibility(beatmap, true)) { Icon = FontAwesome.Solid.Eye };
+            }
+            else
+            {
+                yield return new OsuMenuItem(SongSelectStrings.HideBackground, MenuItemType.Standard, () => beatmaps.SetBackgroundVisibility(beatmap, false)) { Icon = FontAwesome.Solid.EyeSlash };
+            }
+
             if (beatmaps.CanHide(beatmap))
                 yield return new OsuMenuItem(WebCommonStrings.ButtonsHide.ToSentence(), MenuItemType.Destructive, () => beatmaps.Hide(beatmap));
         }

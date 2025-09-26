@@ -24,7 +24,10 @@ namespace osu.Game.Graphics.Backgrounds
         [BackgroundDependencyLoader]
         private void load(LargeTextureStore textures)
         {
-            Sprite.Texture = Beatmap?.GetBackground() ?? textures.Get(fallbackTextureName);
+            if (Beatmap.BeatmapInfo.BackgroundHidden)
+                Sprite.Texture = textures.Get(fallbackTextureName);
+            else
+                Sprite.Texture = Beatmap?.GetBackground() ?? textures.Get(fallbackTextureName);
         }
 
         public override bool Equals(Background other)

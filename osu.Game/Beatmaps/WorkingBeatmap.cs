@@ -244,6 +244,7 @@ namespace osu.Game.Beatmaps
                     b.BeatmapInfo.LastOnlineUpdate = BeatmapInfo.LastOnlineUpdate;
                     b.BeatmapInfo.LastPlayed = BeatmapInfo.LastPlayed;
                     b.BeatmapInfo.EditorTimestamp = BeatmapInfo.EditorTimestamp;
+                    b.BeatmapInfo.BackgroundHidden = BeatmapInfo.BackgroundHidden;
                     b.BeatmapInfo.StarRating = BeatmapInfo.StarRating; // this could be recomputed in the decoding process but it's a bit annoying to do.
 
                     return b;

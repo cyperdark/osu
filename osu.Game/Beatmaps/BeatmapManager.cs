@@ -567,6 +567,29 @@ namespace osu.Game.Beatmaps
             transaction.Commit();
         });
 
+        /// <summary>
+        /// Hide beatmap background.
+        /// </summary>
+        /// <param name="beatmapInfo">The beatmap difficulty to hide background.</param>
+        /// <param name="show">Whether to show background or display fallback texture.</param>
+        public bool SetBackgroundVisibility(BeatmapInfo beatmapInfo, bool show)
+        {
+            return Realm.Run(r =>
+            {
+                using (var transaction = r.BeginWrite())
+                {
+                    if (!beatmapInfo.IsManaged)
+                        beatmapInfo = r.Find<BeatmapInfo>(beatmapInfo.ID)!;
+
+                    beatmapInfo.BackgroundHidden = !show;
+                    transaction.Commit();
+
+                    workingBeatmapCache.Invalidate(beatmapInfo);
+                    return true;
+                }
+            });
+        }
+
         #region Implementation of ICanAcceptFiles
 
         public Task Import(params string[] paths) => beatmapImporter.Import(paths);

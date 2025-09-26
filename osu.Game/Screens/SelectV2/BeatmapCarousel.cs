@@ -443,7 +443,9 @@ namespace osu.Game.Screens.SelectV2
                             // hidden changed, needs re-filter
                             oldBeatmap.Hidden == newBeatmap.Hidden &&
                             // might be used for grouping, returning from gameplay
-                            oldBeatmap.LastPlayed == newBeatmap.LastPlayed;
+                            oldBeatmap.LastPlayed == newBeatmap.LastPlayed &&
+                            // background hidden, need re-display
+                            oldBeatmap.BackgroundHidden == newBeatmap.BackgroundHidden;
 
                         if (equalForDisplayPurposes)
                             return false;

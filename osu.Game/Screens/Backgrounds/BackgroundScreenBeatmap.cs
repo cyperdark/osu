@@ -92,7 +92,12 @@ namespace osu.Game.Screens.Backgrounds
 
                 Schedule(() =>
                 {
-                    if ((Background as BeatmapBackground)?.Beatmap.BeatmapInfo.BackgroundEquals(beatmap?.BeatmapInfo) ?? false)
+                    if (
+                        Background is BeatmapBackground beatmapBackground &&
+                        beatmapBackground.Beatmap?.BeatmapInfo != null &&
+                        beatmapBackground.Beatmap.BeatmapInfo.BackgroundEquals(beatmap?.BeatmapInfo) &&
+                        beatmapBackground.Beatmap.BeatmapInfo.BackgroundHidden == beatmap.BeatmapInfo.BackgroundHidden
+                    )
                         return;
 
                     cancellationSource?.Cancel();

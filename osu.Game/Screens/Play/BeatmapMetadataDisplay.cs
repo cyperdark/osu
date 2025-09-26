@@ -9,6 +9,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Localisation;
 using osu.Game.Beatmaps;
 using osu.Game.Beatmaps.Drawables;
@@ -28,6 +29,8 @@ namespace osu.Game.Screens.Play
     public partial class BeatmapMetadataDisplay : Container
     {
         private readonly IWorkingBeatmap beatmap;
+        private readonly string fallbackTextureName = @"Backgrounds/bg1";
+
         private readonly Bindable<IReadOnlyList<Mod>> mods;
         private readonly Drawable logoFacade;
         private LoadingSpinner loading;
@@ -60,7 +63,7 @@ namespace osu.Game.Screens.Play
         private StarRatingDisplay starRatingDisplay;
 
         [BackgroundDependencyLoader]
-        private void load(BeatmapDifficultyCache difficultyCache)
+        private void load(BeatmapDifficultyCache difficultyCache, LargeTextureStore textures)
         {
             var metadata = beatmap.BeatmapInfo.Metadata;
 
@@ -108,7 +111,7 @@ namespace osu.Game.Screens.Play
                                 new Sprite
                                 {
                                     RelativeSizeAxes = Axes.Both,
-                                    Texture = beatmap.GetBackground(),
+                                    Texture = beatmap.Beatmap.BeatmapInfo.BackgroundHidden ? textures.Get(fallbackTextureName) :  beatmap.GetBackground(),
                                     Origin = Anchor.Centre,
                                     Anchor = Anchor.Centre,
                                     FillMode = FillMode.Fill,

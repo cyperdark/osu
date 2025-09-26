@@ -147,6 +147,8 @@ namespace osu.Game.Beatmaps
         /// </summary>
         public double? EditorTimestamp { get; set; }
 
+        public bool BackgroundHidden { get; set; }
+
         public bool Equals(BeatmapInfo? other)
         {
             if (ReferenceEquals(this, other)) return true;
